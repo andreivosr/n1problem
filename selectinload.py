@@ -1,5 +1,5 @@
 from sqlalchemy import event
-from sqlalchemy.orm import joinedload, sessionmaker
+from sqlalchemy.orm import sessionmaker, selectinload
 from models import Cliente
 from engine import engine
 
@@ -14,7 +14,7 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 
-clientes = session.query(Cliente).options(joinedload(Cliente.pedidos)).all()
+clientes = session.query(Cliente).options(selectinload(Cliente.pedidos)).all()
 
 for cliente in clientes:
     print(cliente.pedidos)
